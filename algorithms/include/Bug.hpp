@@ -26,12 +26,14 @@ class Bug : public Robot
         using Robot::Robot;
 
         void start();
-        void startWithTarget(const Eigen::Vector3d &target_state);
+        void startWithTarget(cv::Mat &map, const Eigen::Vector3d &target_state);
 
         void setTargetState(const Eigen::Vector3d &target_state);
 
     private:
         Eigen::Vector3d target_state_;
+
+        cv::Mat original_map_;
 };
 
 }// mobile_robots
