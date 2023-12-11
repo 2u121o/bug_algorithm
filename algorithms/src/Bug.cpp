@@ -18,14 +18,11 @@ bool Bug::nextStep()
     const double EPSILON = 0.01;
 
     double orientation_desired = atan2(target_state_(0), target_state_(1))-M_PI/2;
-    // double orientation_desired = target_state(2);
     double orientation_current = robot_state_.theta;
     double orientation_error = orientation_desired - orientation_current;
-    std::cout << "orientation_desired: " << orientation_desired << std::endl; 
+
     if(orientation_error>EPSILON || orientation_error<-EPSILON)
     {
-        std::cout << "[bug] adjusting orientation: " << orientation_current << std::endl;
-        //std::cout << "orientation_error: " << orientation_error << std::endl; 
         if(orientation_error>EPSILON)
         {
             moveRobot(original_map_,81);
@@ -46,21 +43,14 @@ void Bug::startWithTarget(const cv::Mat &map, const Eigen::Vector3d &target_stat
 {
     target_state_ = target_state;
 
-    // cv::Point target_point(target_state_(0), target_state_(1));
-    // cv::circle(map, target_point, 1, cv::Scalar(0, 255, 0), 5, 8, 0);
-
-    std::cout << "[Bug] target state: " << target_state_ << std::endl;
-
     const double EPSILON = 0.01;
 
     double orientation_desired = atan2(target_state_(0), target_state_(1))-M_PI/2;
     // double orientation_desired = target_state(2);
     double orientation_current = robot_state_.theta;
     double orientation_error = orientation_desired - orientation_current;
-    std::cout << "orientation_desired: " << orientation_desired << std::endl; 
     while(orientation_error>EPSILON || orientation_error<-EPSILON)
     {
-        std::cout << "[bug] adjusting orientation: " << orientation_current << std::endl;
         //std::cout << "orientation_error: " << orientation_error << std::endl; 
         if(orientation_error>EPSILON)
         {

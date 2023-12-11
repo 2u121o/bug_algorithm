@@ -16,7 +16,7 @@ int main()
     initial_state.theta =  M_PI/2;
 
     Eigen::Vector3d target_state;
-    target_state << 500, 500, 0;
+    target_state << 600, 550, 0;
 
     std::string paht_map = "../../maps/map_obstacles.png";
     cv::Mat original_map = cv::imread(paht_map);
