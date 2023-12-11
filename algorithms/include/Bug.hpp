@@ -3,7 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include <mobile_robot_model/robot.hpp>
+#include <mobile_robot_model/Robot.hpp>
 
 /**
  * @brief The Bug object extend the Robot object which represent a circular mobile
@@ -26,9 +26,13 @@ class Bug : public Robot
         using Robot::Robot;
 
         void start();
-        void startWithTarget(cv::Mat &map, const Eigen::Vector3d &target_state);
+        void startWithTarget(const cv::Mat &map, const Eigen::Vector3d &target_state);
 
         void setTargetState(const Eigen::Vector3d &target_state);
+
+        bool nextStep();
+
+        void setMap(const cv::Mat &original_map);
 
     private:
         Eigen::Vector3d target_state_;
