@@ -38,6 +38,13 @@ class Bug : public Robot
         Eigen::Vector3d target_state_;
 
         cv::Mat original_map_;
+
+        bool is_target_direction_;
+
+        bool isReoriented();
+
+        
+        bool isMovingAroundObstacle();
 };
 
 }// mobile_robots

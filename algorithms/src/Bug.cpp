@@ -13,7 +13,7 @@ void Bug::start()
 
 }
 
-bool Bug::nextStep()
+bool Bug::isReoriented()
 {
     const double EPSILON = 0.01;
 
@@ -35,8 +35,44 @@ bool Bug::nextStep()
         orientation_error = orientation_desired - orientation_current;
         return false;
     }
-    std::cout << "Reached!!!" << std::endl;
+    
     return true;
+}
+
+bool Bug::isMovingAroundObstacle()
+{
+  // take two points that are at the intersection between the ray in the direction of
+//   the robot and the obstacle. Then use this two point to reconstruct the edge of the obstacle
+    return true;
+}
+
+bool Bug::nextStep()
+{
+    
+    if(!is_target_direction_)
+    {
+        is_target_direction_ = isReoriented();
+        takeMeasurementsRange(original_map_, ranges_);
+    }
+    else
+    {
+        
+        takeMeasurementsRange(original_map_, ranges_);
+        if(ranges_(ranges_.size()/2-1) >= sensor_settings_.range_max)
+        {
+            moveRobot(original_map_,82);
+        }
+        else
+        {
+            if(!isMovingAroundObstacle())
+            {
+                is_target_direction_ = false;
+            }
+        }
+        
+    }
+    return false;
+    std::cout << "Reached!!!" << std::endl;
 }
 
 void Bug::startWithTarget(const cv::Mat &map, const Eigen::Vector3d &target_state)
@@ -70,6 +106,7 @@ void Bug::startWithTarget(const cv::Mat &map, const Eigen::Vector3d &target_stat
 void Bug::setTargetState(const Eigen::Vector3d &target_state)
 {
     target_state_ = target_state;
+    is_target_direction_ = false;
 }
 
 void Bug::setMap(const cv::Mat &original_map)
