@@ -5,6 +5,7 @@
 
 #include <mobile_robot_model/Robot.hpp>
 
+
 /**
  * @brief The Bug object extend the Robot object which represent a circular mobile
  *        platform provided with 2d laser scanner. The Bug in addition make this 
@@ -41,8 +42,11 @@ class Bug : public Robot
 
         bool is_target_direction_;
 
+        bool is_oriented_parallel_to_surface_ = false;
+
         bool isReoriented();
 
+        bool orientParallelToSurface(double &edge_angle);
         
         bool isMovingAroundObstacle();
 };
